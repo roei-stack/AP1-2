@@ -1,6 +1,6 @@
 #include "Reader.h"
+#include <iostream>
 #include <sstream>
-#include <algorithm>
 
 /**
  * @param filePath the path to the input file
@@ -15,20 +15,23 @@ Reader::Reader(const string& filePath) {
 
 /**
  * builds the database from the csv file
- * @return a vector-list of pointers to heap-allocated Classifiable objects
+ * @return a vector-list of pointers to heap-allocated Iris objects
  */
-vector<Classifiable*>* Reader::buildDataset() {
-    auto* data = new vector<Classifiable*>; // static type is vector<Classifiable*>
+vector<Iris*>* Reader::buildDataset() {
+    vector<Iris *> *data;
+    data = new vector<Iris *>;
+
     string line;
     while (this->file >> line) {
-        Iris* c = new Iris(0, 0, 0, 0, "");
-        parseLine(line, c);
-        data->push_back(c);
+        Iris* iris = parseLine(line);
+        data->push_back(iris);
     }
     // Requests the container to reduce its capacity to fit its size, so no memory is wasted
     data->shrink_to_fit();
-    // closing the file as we no longer need it
+
+    // closing the file as we finished using it
     this->close();
+
     return data;
 }
 
@@ -38,7 +41,7 @@ vector<Classifiable*>* Reader::buildDataset() {
  * @return a pointer to classified object
  * remember to free the database
  */
-void Reader::parseLine(const string& line, Classifiable* c) {
+Iris* Reader::parseLine(const string& line) {
     double petalLength, sepalWidth, sepalLength, width;
     string type;
     //"petal length,sepal width, sepal length, width"
@@ -59,8 +62,9 @@ void Reader::parseLine(const string& line, Classifiable* c) {
     values[2] >> sepalLength;
     values[3] >> width;
     values[4] >> type;
-    // setting the object
-    c->setValues(width, sepalLength, sepalWidth, petalLength, type);
+    // creating the object
+    Iris* iris = new Iris(width, sepalLength, sepalWidth,petalLength, type);
+    return iris;
 }
 
 /**

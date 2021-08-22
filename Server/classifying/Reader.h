@@ -1,18 +1,17 @@
-#include <iostream>
 #include <fstream>
 #include <vector>
-#include "Classifiable.h"
 #include "Iris.h"
 
 using namespace std;
 class Reader {
 private:
     ifstream file;
-    static void parseLine(const string& line, Classifiable* c);
+
+    Iris* parseLine(const string& line);
     void close();
 
 public:
     explicit Reader(const string& filePath);
 
-    vector<Classifiable*>* buildDataset();
+    vector<Iris*>* buildDataset();
 };

@@ -5,8 +5,7 @@
 #ifndef ASS1_CLASSIFIER_H
 #define ASS1_CLASSIFIER_H
 
-#include "Classifiable.h"
-
+template<class T>
 class Classifier {
 public:
     /**
@@ -17,7 +16,8 @@ public:
      *     **if other's type won't be appropriate, an exception may be thrown.**
      * @return string
      */
-    virtual string classify(const Classifiable& c) = 0;
+    virtual string classify(const T& toClassify) = 0;
+
     /**
      * virtual destructor.
      */

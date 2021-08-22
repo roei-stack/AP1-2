@@ -5,31 +5,28 @@
 #ifndef ASS1_IRIS_H
 #define ASS1_IRIS_H
 
-
-#include "Classifiable.h"
 #include <string>
 using namespace std;
 
-class Iris : public Classifiable {
+class Iris {
 private:
     double width;
     double sepalLength;
     double sepalWidth;
     double petalLength;
     string classification;
-    void Print(ostream& os) const override;
+    void Print(ostream& os) const;
 public:
     Iris(double width, double sepalLength, double sepalWidth, double petalLength,
          const string& classification = "");
 
-    string getClassification() const override;
+    string getClassification() const;
 
-    double getDistance(const Classifiable& other) const override;
+    double getDistance(const Iris& other) const;
 
-    void setValues(double width, double sepalLength, double sepalWidth, double petalLength,
-                           const string& classification) override;
+    void setClassification(const string& newClassification);
 
-    void setClassification(string newClassification) override;
+    friend ostream& operator<<(ostream& out, const Iris& iris);
 };
 
 
