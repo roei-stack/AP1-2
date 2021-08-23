@@ -12,21 +12,22 @@ Tcp::Tcp(bool isServer, const char* const ip, const int port): ip(ip), port(port
     }
     // by default, client sends using its own socket id, and servers will create a unique client socket
     this->clientSock = socketId;
-    // server : bind, listen, accept...
+    // server will : bind, listen, accept...
     if (isServer) {
         this->bind();
         this->listen();
         this->accept();
         return;
     }
-    //client : connect...
+    //client will : connect...
     this->connect();
 }
 
-// bind is server-only operation
 void Tcp::bind() {
+    // initializing sin
     memset(&sin, 0, sizeof(sin));
     this->sin.sin_family = AF_INET;
+    // addresses "0.0.0.0" and empty strings are translated to ANY_ADDRESS
     if (strcmp(ip, "0.0.0.0") != 0 || strcmp(ip, "") != 0) {
         this->sin.sin_addr.s_addr = INADDR_ANY;
     } else {
@@ -38,7 +39,6 @@ void Tcp::bind() {
     }
 }
 
-// listen is a server's only operation
 void Tcp::listen() const {
     int size = 5;
     if (::listen(this->socketId, size) < 0) {
@@ -46,10 +46,10 @@ void Tcp::listen() const {
     }
 }
 
-// accept is used by server's
 void Tcp::accept() {
     // closing the connection with previous client
     this->attemptToCloseClient();
+    // waiting on next client
     unsigned int address_len = sizeof(this->clientSin);
     this->clientSock = ::accept(this->socketId, (struct sockaddr *) &this->clientSin,  &address_len);
     if (this->clientSock < 0) {
@@ -57,19 +57,24 @@ void Tcp::accept() {
     }
 }
 
-// connect is used by clients trying to connect to servers
 void Tcp::connect() {
+    // initializing sin to avoid garbage value errors
     memset(&sin, 0, sizeof(this->sin));
     this->sin.sin_family = AF_INET;
     this->sin.sin_addr.s_addr = inet_addr(this->ip);
     this->sin.sin_port = htons(this->port);
+    // attempting to connect
     if (::connect(this->socketId, (struct sockaddr *) &this->sin, sizeof(this->sin)) < 0) {
         throw runtime_error("connection failed");
     }
 }
 
 void Tcp::send(const string& message) const {
-    long bytesSent = ::send(this->clientSock, message.c_str(), BUFFER, 0);
+    /*
+     * if this instance is a server, it will use the client socket to communicate with the client
+     * if this instance is a client, then: clientSock = SocketId
+     */
+    long bytesSent = ::send(this->clientSock, message.c_str(), message.size(), 0);
     if (bytesSent < 0) {
         throw runtime_error("error sending, connection may be closed");
     }
@@ -86,7 +91,7 @@ string Tcp::receive() {
     else if (bytesRead < 0) {
         throw runtime_error("failed receiving the message");
     }
-    // buffer holds the message
+    // converting to string type
     string str(buffer);
     return str;
 }

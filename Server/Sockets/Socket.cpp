@@ -4,6 +4,7 @@
 
 #include "Socket.h"
 
+
 Socket::Socket(bool isTcpStrategy, bool isServer, const char *ip, int port) {
     if (isTcpStrategy) {
         this->socket = new Tcp(isServer, ip, port);
