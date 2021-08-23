@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/ass2.dir/Server/classifying/Iris.cpp.o CMakeFiles/ass2.dir/Server/classifying/Reader.cpp.o CMakeFiles/ass2.dir/Server/main.cpp.o -o ass2 
