@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/serv.dir/Server/classifying/Iris.cpp.o CMakeFiles/serv.dir/Server/classifying/Reader.cpp.o CMakeFiles/serv.dir/Server/main.cpp.o -o serv 
