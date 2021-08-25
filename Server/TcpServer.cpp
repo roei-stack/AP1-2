@@ -6,16 +6,14 @@
 
 int main() {
     const char ip[] = "127.0.0.1";
-    const int port = 5555;
+    const int port = 7835;
 
     Socket tcpServer(TCP, SERVER, ip, port);
     tcpServer.send("CONNECTED!, READY TO RECEIVE MESSAGES!");
     const string input = tcpServer.receive();
-    std::cout << "INPUT FROM CLIENT: " << input << std::endl;
-
-    //todo parse input -> tcp/udp input_path output_path
-    //todo if tcp -> classify the unclassified, and write to output_path (use the main code from ass1)
-    //todo id udp ->
+    //std::cout << "INPUT FROM CLIENT: " << input << std::endl;
+    
+    
     tcpServer.close();
     return 0;
 }
