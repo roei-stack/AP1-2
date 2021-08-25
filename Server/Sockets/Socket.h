@@ -32,5 +32,4 @@ public:
     ~Socket();
 };
 
-
 #endif //ASS2_SOCKET_H

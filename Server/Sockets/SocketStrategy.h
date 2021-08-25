@@ -14,11 +14,12 @@
 #include <cstring>
 
 #define BUFFER 2048
-// This defines result in easier constructor calls
+// These define result in easier constructor calls
 #define CLIENT false
 #define SERVER true
 
-using namespace std;
+using std::string;
+using std::runtime_error;
 
 class SocketStrategy {
 public:
@@ -39,7 +40,7 @@ public:
      * @return if socket is closed or not
     */
     virtual bool isClosed() const = 0;
-    virtual ~SocketStrategy() = 0;
+    virtual ~SocketStrategy() = default;
 };
 
 #endif //ASS2_SOCKETSTRATEGY_H
