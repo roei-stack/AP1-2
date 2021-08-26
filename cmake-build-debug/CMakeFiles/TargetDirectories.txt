@@ -1,7 +1,0 @@
-/mnt/c/Users/User/Desktop/ass2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/User/Desktop/ass2/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/c/Users/User/Desktop/ass2/cmake-build-debug/CMakeFiles/test2.dir
-/mnt/c/Users/User/Desktop/ass2/cmake-build-debug/CMakeFiles/test1.dir
-/mnt/c/Users/User/Desktop/ass2/cmake-build-debug/CMakeFiles/Client.dir
-/mnt/c/Users/User/Desktop/ass2/cmake-build-debug/CMakeFiles/UdpServer.dir
-/mnt/c/Users/User/Desktop/ass2/cmake-build-debug/CMakeFiles/TcpServer.dir
