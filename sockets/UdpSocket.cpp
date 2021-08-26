@@ -14,6 +14,8 @@ UdpSocket::UdpSocket(const char * const othersIp, int othersPort) {
     this->othersin.sin_family = AF_INET;
     this->othersin.sin_addr.s_addr = inet_addr(othersIp);
     this->othersin.sin_port = htons(othersPort);
+
+    this->send("are you ready");
 }
 
 UdpSocket::UdpSocket(int myPort, const char *myIp) {

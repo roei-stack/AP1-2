@@ -12,7 +12,8 @@ int main() {
     UdpSocket udpSocket("127.0.0.1", 50000);
     std::cout << udpSocket.receive();
     TcpSocket tcpSocket("127.0.0.1", 50001);
-    std::cout << tcpSocket.receive();
+    string m = tcpSocket.receive();
+    std::cout << m;
 
     Socket* socket;
     string protocol;
