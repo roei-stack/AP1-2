@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/server.dir/Server/classifying/Iris.cpp.o CMakeFiles/server.dir/Server/classifying/Reader.cpp.o CMakeFiles/server.dir/Server/Sockets/Tcp.cpp.o CMakeFiles/server.dir/Server/Sockets/Udp.cpp.o CMakeFiles/server.dir/Server/Sockets/Socket.cpp.o -o server 
