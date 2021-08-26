@@ -1,0 +1,31 @@
+//
+// Created by user on 8/26/2021.
+//
+
+#include "Reader.h"
+#include <string>
+#include "KnnClassifier.h"
+#include "UdpServerSocket.h"
+#include "Server.h"
+
+using std::string;
+
+int main() {
+    string classifiedPath = "C:\\Users\\user\\CLionProjects\\ass2\\classification\\classified.csv";
+    //// initializing the reader for classified and unclassified
+    Reader reader(classifiedPath);
+    //// loading the datasets
+    vector<Iris*>* classifiedData = reader.buildDataset();
+    //// creating classifier
+    KnnClassifier<Iris> classifier(5, classifiedData);
+
+    //// creating the socket
+    UdpServerSocket serverSocket(50000);
+
+    //// creating the server
+    Server server(&serverSocket, &classifier);
+    //// running the server
+    server.run();
+
+    return 0;
+}

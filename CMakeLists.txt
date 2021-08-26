@@ -1,36 +1,19 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.16)
 project(ass2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(Server/classifying)
+include_directories(classification sockets)
 
-add_executable(TcpServer Server/TcpServer.cpp
-        Server/Sockets/Socket.h
-        Server/Sockets/Socket.cpp
-        Server/Sockets/SocketStrategy.h
-        Server/Sockets/Tcp.h
-        Server/Sockets/Tcp.cpp
-        Server/Sockets/Udp.h
-        Server/Sockets/Udp.cpp)
+add_executable(TcpServer
+        sockets/TcpSocket.cpp sockets/TcpSocket.h sockets/TcpServerSocket.cpp sockets/TcpServerSocket.h
+        classification/Reader.cpp classification/Iris.cpp classification/KnnClassifier.h classification/StrToIris.cpp classification/StrToIris.h servers/TcpServer.cpp
+        servers/Server.cpp)
 
-add_executable(UdpServer Server/UdpServer.cpp
-        Server/Sockets/Socket.h
-        Server/Sockets/Socket.cpp
-        Server/Sockets/SocketStrategy.h
-        Server/Sockets/Tcp.h
-        Server/Sockets/Tcp.cpp
-        Server/Sockets/Udp.h
-        Server/Sockets/Udp.cpp)
+add_executable(UdpServer
+        sockets/UdpServerSocket.cpp sockets/UdpServerSocket.h sockets/UdpSocket.cpp sockets/UdpSocket.h servers/Server.cpp servers/Server.h
+        classification/Reader.cpp classification/Iris.cpp classification/KnnClassifier.h classification/StrToIris.cpp classification/StrToIris.h servers/UdpServer.cpp)
 
-add_executable(Client Client.cpp
-        Server/Sockets/Socket.h
-        Server/Sockets/Socket.cpp
-        Server/Sockets/SocketStrategy.h
-        Server/Sockets/Tcp.h
-        Server/Sockets/Tcp.cpp
-        Server/Sockets/Udp.h
-        Server/Sockets/Udp.cpp)
+add_executable(Client client/Client.cpp
+        sockets/UdpSocket.cpp sockets/TcpSocket.cpp)
 
-add_executable(test1 Server/Sockets/SocketStrategy.h Server/Sockets/Tcp.cpp Server/Sockets/Tcp.h Server/Sockets/Udp.cpp Server/Sockets/Udp.h Server/testingsockets/tcpServerTest.cpp Server/Sockets/Socket.cpp Server/Sockets/Socket.h)
-add_executable(test2 Server/Sockets/SocketStrategy.h Server/Sockets/Tcp.cpp Server/Sockets/Tcp.h Server/Sockets/Udp.cpp Server/Sockets/Udp.h Server/testingsockets/tcpClientTest.cpp Server/Sockets/Socket.cpp Server/Sockets/Socket.h)
