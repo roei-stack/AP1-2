@@ -17,3 +17,5 @@ add_executable(UdpServer
 add_executable(Client client/Client.cpp
         sockets/UdpSocket.cpp sockets/TcpSocket.cpp)
 
+add_executable(A A.cpp)
+

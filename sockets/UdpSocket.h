@@ -21,7 +21,7 @@ public:
     * @param port server's port/port client will connect to
     */
     UdpSocket(const char* othersIp, int othersPort);
-    UdpSocket(const char* othersIp, int othersPort, int myPort, const char* myIp = "");
+    explicit UdpSocket(int myPort, const char* myIp = "");
     void send(const string& message) const override;
     string receive() override;
     void close() override;

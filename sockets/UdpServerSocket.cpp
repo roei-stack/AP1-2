@@ -4,7 +4,7 @@
 
 #include "UdpServerSocket.h"
 
-UdpServerSocket::UdpServerSocket(int port, const char *ip) : socket1(nullptr,0, port, ip){
+UdpServerSocket::UdpServerSocket(int port, const char *ip) : socket1(port, ip){
 
 }
 

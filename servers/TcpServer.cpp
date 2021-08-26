@@ -11,7 +11,7 @@
 using std::string;
 
 int main() {
-    string classifiedPath = "..\\classification\\classified.csv";
+    string classifiedPath = "../classification/classified.csv";
     //// initializing the reader for classified and unclassified
     Reader reader(classifiedPath);
     //// loading the datasets

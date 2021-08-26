@@ -16,7 +16,7 @@ UdpSocket::UdpSocket(const char * const othersIp, int othersPort) {
     this->othersin.sin_port = htons(othersPort);
 }
 
-UdpSocket::UdpSocket(const char *othersIp, int othersPort, int myPort, const char *myIp) {
+UdpSocket::UdpSocket(int myPort, const char *myIp) {
     this->socketId = socket(AF_INET, SOCK_DGRAM, 0);
     if (this->socketId < 0) {
         perror("error creating socket");
@@ -36,9 +36,6 @@ UdpSocket::UdpSocket(const char *othersIp, int othersPort, int myPort, const cha
     }
 
     memset(&this->othersin, 0, sizeof(this->othersin));
-    this->othersin.sin_family = AF_INET;
-    this->othersin.sin_addr.s_addr = inet_addr(othersIp);
-    this->othersin.sin_port = htons(othersPort);
 }
 
 void UdpSocket::send(const string &message) const {

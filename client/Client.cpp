@@ -8,6 +8,7 @@
 #include "TcpSocket.h"
 
 int main() {
+    std::cout << "hey";
     UdpSocket udpSocket("127.0.0.1", 50000);
     std::cout << udpSocket.receive();
     TcpSocket tcpSocket("127.0.0.1", 50001);
