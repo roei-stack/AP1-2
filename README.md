@@ -1,5 +1,5 @@
 # ass2-advanced_programing
-by itamar gefen 326300738 and roei cohen
+by itamar gefen 326300738 and roei cohen 325714152
 
 running instractions:
 we provide you a cmake with 3 targets:
