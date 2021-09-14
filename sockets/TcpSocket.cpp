@@ -37,9 +37,6 @@ string TcpSocket::receive() {
     long bytesRead = ::recv(this->socketId, buffer, BUFFER, 0);
     if (bytesRead < 0) {
         throw runtime_error("failed receiving the message");
-    } else if (strcmp(buffer, "quit") == 0) {
-        // connection is closed
-        ::close(this->socketId);
     }
     // converting to string type
     string str(buffer);
