@@ -8,12 +8,12 @@
 #include "TcpSocket.h"
 
 int main() {
-    std::cout << "hey";
+    std::cout << "hey" << std::endl;
     UdpSocket udpSocket("127.0.0.1", 50000);
-    std::cout << udpSocket.receive();
+    std::cout << udpSocket.receive() << std::endl;
     TcpSocket tcpSocket("127.0.0.1", 50001);
     string m = tcpSocket.receive();
-    std::cout << m;
+    std::cout << m << std::endl;
 
     Socket* socket;
     string protocol;
@@ -25,8 +25,10 @@ int main() {
     }
     if (strcmp(protocol.c_str(), "UDP") == 0) {
         socket = &udpSocket;
+        tcpSocket.send("cancel");
     } else {
         socket = &tcpSocket;
+        udpSocket.send("cancel");
     }
 
     string unClassifiedPath;
@@ -37,10 +39,10 @@ int main() {
     std::cout << "enter the path of the output file: " << std::endl;
     std::cin >> outputPath;
 
-    socket->send(unClassifiedPath);
-    socket->send(outputPath);
+    string toSend = unClassifiedPath + "," + outputPath;
+    socket->send(toSend);
 
-    std::cout << socket->receive();
+    std::cout << socket->receive() << std::endl;
 
     return 0;
 }

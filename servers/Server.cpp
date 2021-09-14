@@ -5,6 +5,7 @@
 #include "Server.h"
 #include "Reader.h"
 #include <string>
+#include <sstream>
 
 Server::Server(ServerSocket *serverSocket, Classifier<Iris>* classifier) {
     this->serverSocket = serverSocket;
@@ -37,24 +38,36 @@ void writeToFile(const vector<Iris*>* dataset, ofstream& out) {
 [[noreturn]] void Server::run() {
     while (true) {
         Socket* clientSocket = serverSocket->accept();
-        string unclassifiedPath = clientSocket->receive();
-        string outputPath = clientSocket->receive();
-        // reading
-        Reader reader(unclassifiedPath);
-        vector<Iris*>* unclassifiedData = reader.buildDataset();
-        // classifying
-        for (Iris* iris : *unclassifiedData) {
-            this->classifier->classify(*iris);
-        }
-        // writing
-        ofstream outFile;
-        outFile.open(outputPath);
-        writeToFile(unclassifiedData, outFile);
-        outFile.close();
-        // releasing
-        release(unclassifiedData);
+        string paths = clientSocket->receive();
+        if (!(paths == "cancel")) {
+            try {
+                string unclassifiedPath, outputPath;
 
-        clientSocket->send("finished classifying");
+                istringstream ss(paths);
+                char delim = ',';
+                getline(ss, unclassifiedPath, delim);
+                getline(ss, outputPath, delim);
+
+                // reading
+                Reader reader(unclassifiedPath);
+                vector<Iris*>* unclassifiedData = reader.buildDataset();
+                // classifying
+                for (Iris* iris : *unclassifiedData) {
+                    iris->setClassification(this->classifier->classify(*iris));
+                }
+                // writing
+                ofstream outFile;
+                outFile.open(outputPath);
+                writeToFile(unclassifiedData, outFile);
+                outFile.close();
+                // releasing
+                release(unclassifiedData);
+
+                clientSocket->send("finished classifying");
+            } catch (...) {
+                clientSocket->send("an error occurred");
+            }
+        }
         //ending the communication with the client
         this->serverSocket->endCommunicationWithClient();
     }
